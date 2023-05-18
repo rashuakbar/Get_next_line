@@ -18,7 +18,8 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <fcntl.h>
-# define BUFF_SIZE 11
+
+# define BUFF_SIZE 1
 
 char	*get_next_line(int fd);
 
