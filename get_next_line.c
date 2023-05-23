@@ -12,46 +12,47 @@
 
 #include "get_next_line.h"
 
-static size_t	ft_strlen(const char *s)
+static char	*get_line(int fd, char *line)
 {
-	size_t	i;
+	char	*file;
+	int	op;
 	
-	i = 0;
-	while (s[i] != '\0' && s[i] != '\n')
-		i++;
-	return (i);
-}
-
-void	*ft_memset(void *src, int c, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	op = 1;
+	file = malloc(sizeof(char) * (BUFF_SIZE + 1));
+	if (!file)
+		return (NULL);
+	while (!ft_strchr(file,'\n') && (op > 0) )
 	{
-		((unsigned char *)src)[i] = (unsigned char) c;
-		i++;
+		op = read(fd, file, BUFF_SIZE);
+		if (op == -1)
+		{
+			free(file);
+			return (NULL);
+		}
+		file[op] = '\0';	
+		line = ft_strjoin(line, file);
 	}
-	return (src);
+	free(file);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	char	file[BUFF_SIZE];
-	size_t		op;
+	static char	*line;
+	char		*trash;
+	size_t		len;
+	size_t		total;
 	
-	op = read(fd, file, BUFF_SIZE);
-	while (op > 0)
-	{
-		printf("%zu bytes\n", op);
-		printf("%s  -  ", file);
-		printf("%zu caracteres\n",ft_strlen(file));
-		ft_memset(&file,'\0',BUFF_SIZE);
-		op = read (fd, file, BUFF_SIZE);
-		if (op == EOF)
-			break;
-	}
-	return (NULL);
+	line = ft_strdup("");
+	if(!line)
+		return (NULL);
+	line = get_line(fd,line);
+	len = ft_strlen(line, '\n');
+	total = ft_strlen(line, '\0');
+	trash = ft_strdup("");
+	trash = ft_strlcpy(trash, line, len);
+	line = ft_strlcpy(line, line + (len + 1),(total - (len+1)));
+	return (trash);
 }
 int main (void)
 {
@@ -61,7 +62,9 @@ int main (void)
 	printf("O seu arquivo: \"test.txt\" tem: \n");
 	while (i < BUFF_SIZE)
 	{
+		//printf("%d   ", i);
 		s = get_next_line(ifile);
+		printf("<%s> \n", s);
 		i++;
 	}
 	close(ifile);
