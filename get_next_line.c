@@ -133,12 +133,14 @@ char	*rest_line(char *src, int j)
 	free(src);
 	return (rest);
 }
-char	*pick_line(char *new_line, char *src)
+char	*pick_line(char *src)
 {
 	int	i;
-
+	char	*new_line;
+	
 	i = 0;
-	if(!new_line || !src)
+	new_line = ft_calloc(1,1);
+	if(!src || !new_line)
 		return (NULL);
 	while (src[i] != '\n')
 	{
@@ -161,12 +163,11 @@ char	*get_next_line(int fd)
 		line = ft_calloc(1,1);
 	line = get_line(fd,line);
 	len = ft_strchr(line,'\n');
-	trash = NULL;
-	trash = pick_line(trash,line);
+	trash = pick_line(line);
 	line = rest_line(line,len);
 	return (trash);
 }
-/*int main (void)
+int main (void)
 {
 	int	ifile = open("test.txt",O_RDONLY);
 	char *s; 
@@ -181,4 +182,4 @@ char	*get_next_line(int fd)
 	}
 	close(ifile);
 	return (0);
-}*/
+}
