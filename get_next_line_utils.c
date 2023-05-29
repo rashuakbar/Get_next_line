@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimendes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/05/18 19:28:10 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:57:38 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	*ft_strjoin(char *s1, char const *s2)
 			str[i++] = *s2++;
 	}
 	str[i] = '\0';
-	//free(s1);
+	//free(s2);
 	return (str);
 }
 
-char	*ft_strchr(const char *str, int c)
+int	ft_strchr(const char *str, int c)
 {
 	char	*temp;
 	size_t	i;
@@ -57,43 +57,36 @@ char	*ft_strchr(const char *str, int c)
 	while (temp[i] != '\0')
 	{
 		if (temp[i] == (unsigned char) c)
-			return (temp + i);
+			return (i);
 		i++;
 	}
 	if (temp[i] == (unsigned char) c)
-		return (temp + i);
-	return (NULL);
+		return (i);
+	return (0);
 }
-char	*ft_strdup(const char *str)
-{
-	char	*dup;
-	size_t	i;
 
+void	*ft_calloc(size_t nl, size_t lsize)
+{
+	void	*temp;
+
+	temp = malloc(lsize * nl);
+	if (!temp)
+		return (NULL);
+	ft_bzero(temp, (lsize * nl));
+	return ((void *)temp);
+}
+
+void	*ft_bzero(void *src, size_t n)
+{
+	size_t	i;
+	char	*s;
+
+	s = (char *) src;
 	i = 0;
-	dup = malloc (sizeof(*str) * (ft_strlen(str,'\0') + 1));
-	if (!dup)
-		return (0);
-	while (str[i] != 0)
+	while (i < n)
 	{
-		dup[i] = (char)str[i];
+		s[i] = '\0';
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-void	*ft_strlcpy(char *dest, char *src, size_t byte)
-{
-	size_t	i;
-	
-	i = 0;
-	if(!src)
-		return (0);
-	while(src[i] && i < byte)
-	{	
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	return ((void *)s);
 }
