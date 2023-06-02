@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/05/29 15:57:38 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:05:34 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s, int c)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
 	size_t	i;
@@ -35,15 +35,15 @@ char	*ft_strjoin(char *s1, char const *s2)
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
-	while (i < (totallen - 1))
-	{
-		while (*s1)
-			str[i++] = *s1++;
-		while (*s2)
-			str[i++] = *s2++;
-	}
+//	while (i < (totallen - 1))
+//	{
+	while (*s1)
+		str[i++] = *s1++;
+	while (*s2)
+		str[i++] = *s2++;
+//	}
 	str[i] = '\0';
-	//free(s2);
+	//free(s1);
 	return (str);
 }
 
@@ -52,8 +52,12 @@ int	ft_strchr(const char *str, int c)
 	char	*temp;
 	size_t	i;
 
+	if(!str)
+		return (-1);
 	temp = (char *)str;
 	i = 0;
+	if (temp[i] == c)
+		return (1);
 	while (temp[i] != '\0')
 	{
 		if (temp[i] == (unsigned char) c)
@@ -62,14 +66,14 @@ int	ft_strchr(const char *str, int c)
 	}
 	if (temp[i] == (unsigned char) c)
 		return (i);
-	return (0);
+	return (-1);
 }
 
 void	*ft_calloc(size_t nl, size_t lsize)
 {
 	void	*temp;
 
-	temp = malloc(lsize * nl);
+	temp = malloc((lsize * nl));
 	if (!temp)
 		return (NULL);
 	ft_bzero(temp, (lsize * nl));
