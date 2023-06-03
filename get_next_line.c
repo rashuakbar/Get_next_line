@@ -6,13 +6,13 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/02 21:01:46 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:47:28 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*size_t	ft_strlen(const char *s, int c)
+size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -93,7 +93,7 @@ void	*ft_bzero(void *src, size_t n)
 		i++;
 	}
 	return ((void *)s);
-}*/
+}
 //
 //
 // MANDATORY PART
@@ -107,7 +107,7 @@ char	*get_nline(int fd, char *line)
 	file = ft_calloc((BUFF_SIZE + 1),sizeof(char));
 	if (!file)
 		return (NULL);
-	while (!ft_strchr(file,'\n') && (op > 0))
+	while (!ft_strchr(file,'\n') && (op != 0))
 	{
 		op = read(fd, file, BUFF_SIZE);
 		if (op == -1)
@@ -136,7 +136,7 @@ char	*rest_line(char *src, int j)
 	if(!rest)
 		return (NULL);
 	temp = src;
-	while (temp[++j] != '\0')
+	while (temp[++j] != '\0')  // ha um erro aqui, qundo lê só um byte, e esse byte é \n CORRIGIR!!!!!!
 		rest[ind++] = temp[j];
 	rest[ind] = '\0';
 	free(src);
@@ -144,16 +144,18 @@ char	*rest_line(char *src, int j)
 }
 char	*pick_line(char *src)
 {
-	int	i;
 	char	*new_line;
+	int		i;
+	int		j;
 	
 	i = 0;
+	j = ft_strchr(src,'\n');
 	if(!src[i])
 		return (NULL);
-	new_line = malloc((ft_strlen(src,'\n')+ 1) * sizeof(char));
+	new_line = malloc((j + 1) * sizeof(char));
 	if(!new_line)
 		return (NULL);
-	while (src[i] != '\n')
+	while (i < j)
 	{
 		new_line[i] = src[i];
 		i++;	
@@ -178,7 +180,7 @@ char	*get_next_line(int fd)
 	line = rest_line(line, len);
 	return (trash);
 }
-/*int main (void)
+int main (void)
 {
 	int	ifile = open("test.txt",O_RDONLY);
 	char *s; 
@@ -194,4 +196,4 @@ char	*get_next_line(int fd)
 	}
 	close(ifile);
 	return (0);
-}*/
+}
