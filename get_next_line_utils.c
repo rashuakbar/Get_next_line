@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/02 21:09:42 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:39:19 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,24 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
 	size_t	i;
+	size_t	j;
 	char	*str;
 
-	i = 0;
+	i = -1;
+	j = -1;
 	totallen = ft_strlen(s1,'\0') + ft_strlen(s2, '\0') + 1;
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
 //	while (i < (totallen - 1))
 //	{
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[++j])
+		str[j + i] = s2[j];
 //	}
-	str[i] = '\0';
-	//free(s1);
+	str[j + i] = '\0';
+	free(s1);
 	return (str);
 }
 

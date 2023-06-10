@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/03 13:47:28 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:50:35 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,24 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
 	size_t	i;
+	size_t	j;
 	char	*str;
 
-	i = 0;
+	i = -1;
+	j = -1;
 	totallen = ft_strlen(s1,'\0') + ft_strlen(s2, '\0') + 1;
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
 //	while (i < (totallen - 1))
 //	{
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[++j])
+		str[j + i] = s2[j];
 //	}
-	str[i] = '\0';
-	//free(s1);
+	str[j + i] = '\0';
+	free(s1);
 	return (str);
 }
 
@@ -136,6 +138,13 @@ char	*rest_line(char *src, int j)
 	if(!rest)
 		return (NULL);
 	temp = src;
+	if (j == 1 && temp[0] == '\n')
+	{
+		rest[0] = '\0';
+		free(src);
+		src = NULL;
+		return (rest);
+	}
 	while (temp[++j] != '\0')  // ha um erro aqui, qundo lê só um byte, e esse byte é \n CORRIGIR!!!!!!
 		rest[ind++] = temp[j];
 	rest[ind] = '\0';
@@ -183,9 +192,49 @@ char	*get_next_line(int fd)
 int main (void)
 {
 	int	ifile = open("test.txt",O_RDONLY);
+	int ifile1 = open("test_nl",O_RDONLY);
+	int ifile2 = open("test_1lsnl", O_RDONLY);
+	int	ifile3 = open("test_void", O_RDONLY);
 	char *s; 
 	int	i = 0;
-	printf("O seu arquivo: \"test.txt\" tem: \n");
+	
+	printf("O seu arquivo: \"test_nl\" tem: \n");
+	while (i < 2)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile1);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile1);
+
+	i = 0;
+	printf("O seu arquivo: \"test_1lsnl\" tem: \n");
+	while (i < 2)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile2);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile2);
+	
+	i = 0;
+	printf("O seu arquivo: \"test_void\" tem: \n");
+	while (i < 3)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile3);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile3);
+
+	i = 0;	
+	printf("\n O seu arquivo: \"test.txt\" tem: \n");
 	while (i < 135)
 	{
 		printf("%d   ", (i+1));
