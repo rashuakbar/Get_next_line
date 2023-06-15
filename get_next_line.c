@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/10 13:50:35 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:26:03 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ size_t	ft_strlen(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 	char	*str;
 
 	i = -1;
@@ -106,10 +106,10 @@ char	*get_nline(int fd, char *line)
 	int	op;
 
 	op = 1;
-	file = ft_calloc((BUFF_SIZE + 1),sizeof(char));
+	file = malloc(BUFF_SIZE * sizeof(char) + 1);
 	if (!file)
 		return (NULL);
-	while (!ft_strchr(file,'\n') && (op != 0))
+	while (!ft_strchr(line,'\n') && (op != 0))
 	{
 		op = read(fd, file, BUFF_SIZE);
 		if (op == -1)
@@ -138,11 +138,11 @@ char	*rest_line(char *src, int j)
 	if(!rest)
 		return (NULL);
 	temp = src;
-	if (j == 1 && temp[0] == '\n')
+	if (*temp && j <= 1 && (temp[0] == '\n' || temp[0] == '\0'))
 	{
 		rest[0] = '\0';
 		free(src);
-		src = NULL;
+		//src = NULL;
 		return (rest);
 	}
 	while (temp[++j] != '\0')  // ha um erro aqui, qundo lê só um byte, e esse byte é \n CORRIGIR!!!!!!
@@ -163,13 +163,17 @@ char	*pick_line(char *src)
 		return (NULL);
 	new_line = malloc((j + 1) * sizeof(char));
 	if(!new_line)
+	{
+		//free(src); 
 		return (NULL);
+	}
 	while (i < j)
 	{
 		new_line[i] = src[i];
 		i++;	
 	}
 	new_line[i] = '\0';
+	//free(src);
 	return (new_line);
 }
 
@@ -184,6 +188,8 @@ char	*get_next_line(int fd)
 	if (!line)
 		line = ft_calloc(1,1);
 	line = get_nline(fd,line);
+	if (!line)
+		return (NULL);
 	len = ft_strchr(line,'\n');
 	trash = pick_line(line);
 	line = rest_line(line, len);
@@ -191,10 +197,10 @@ char	*get_next_line(int fd)
 }
 int main (void)
 {
-	int	ifile = open("test.txt",O_RDONLY);
+//	int	ifile = open("test.txt",O_RDONLY);
 	int ifile1 = open("test_nl",O_RDONLY);
 	int ifile2 = open("test_1lsnl", O_RDONLY);
-	int	ifile3 = open("test_void", O_RDONLY);
+//	int	ifile3 = open("test_void", O_RDONLY);
 	char *s; 
 	int	i = 0;
 	
@@ -221,7 +227,7 @@ int main (void)
 	}
 	close(ifile2);
 	
-	i = 0;
+	/*i = 0;
 	printf("O seu arquivo: \"test_void\" tem: \n");
 	while (i < 3)
 	{
@@ -243,6 +249,6 @@ int main (void)
 		free(s);
 		i++;
 	}
-	close(ifile);
+	close(ifile);*/
 	return (0);
 }
