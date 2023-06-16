@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 19:01:21 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:44:54 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,28 @@ int	ft_strchr(const char *str, int c)
 	return (0);
 }
 
-char	*rest_line(char *src, int j)
+char	*rest_line(char *src)
 {
 	int		i;
+	int		j;
 	int		ind;
 	char	*rest;
-	char	*temp;
 	
 	ind = 0;
-	i = ft_strchr(src,'\0');
-	temp = src;
-	if (!temp[j])
+	i = 0;
+	j = ft_strlen(src, '\0');
+	while (src[i] && src[i] != '\n')
+		i++;
+	if (!src[i])
 	{
 		free(src);
 		return (NULL);
 	}
-	rest = malloc((i - j + 1) * sizeof(char));
+	rest = malloc((j - i) * sizeof(char));
 	if(!rest)
 		return (NULL);
-	while (temp[++j] != '\0')
-		rest[ind++] = temp[j];
+	while (src[++i] != '\0')
+		rest[ind++] = src[j];
 	rest[ind] = '\0';
 	free(src);
 	return (rest);
@@ -99,10 +101,12 @@ char	*pick_line(char *src)
 	int		j;
 	
 	i = 0;
-	j = ft_strchr(src,'\n');
-	if(!src[i])
+	j = 0;
+	if(!src[j])
 		return (NULL);
-	new_line = malloc((j + 1) * sizeof(char));
+	while (src[j] && src[j] != '\n')
+		j++;
+	new_line = malloc(j * sizeof(char) + 1);
 	if(!new_line)
 		return (NULL);
 	while (i < j)

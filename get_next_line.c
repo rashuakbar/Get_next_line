@@ -6,13 +6,13 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 19:07:16 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:44:07 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s, int c)
+/*size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -67,26 +67,28 @@ int	ft_strchr(const char *str, int c)
 		return (i);
 	return (0);
 }
-char	*rest_line(char *src, int j)
+char	*rest_line(char *src)
 {
 	int		i;
 	int		ind;
+	int		j;
 	char	*rest;
-	char	*temp;
-	
+		
 	ind = 0;
-	i = ft_strchr(src,'\0');
-	temp = src;
-	if (!temp[j])
+	i = 0;
+	j = ft_strlen(src,'\0');
+	while (src[i] && src[i] != '\n')
+		i++;
+	if (!src[i])
 	{
 		free(src);
 		return (NULL);
 	}
-	rest = malloc((i - j + 1) * sizeof(char));
+	rest = malloc((j - i) * sizeof(char));
 	if(!rest)
 		return (NULL);
-	while (temp[++j] != '\0')
-		rest[ind++] = temp[j];
+	while (src[++i] != '\0')
+		rest[ind++] = src[i];
 	rest[ind] = '\0';
 	free(src);
 	return (rest);
@@ -103,7 +105,7 @@ char	*pick_line(char *src)
 		return (NULL);
 	while (src[j] && src[j] != '\n')
 		j++;
-	new_line = malloc(j * sizeof(char) + 2);
+	new_line = malloc(j * sizeof(char) + 1);
 	if(!new_line)
 		return (NULL);
 	while (i < j)
@@ -113,7 +115,7 @@ char	*pick_line(char *src)
 	}
 	new_line[i] = '\0';
 	return (new_line);
-}
+}*/
 //
 //
 // MANDATORY PART
@@ -147,7 +149,6 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*trash;
-	int		len;
 	
 	if (!fd || !BUFF_SIZE)
 		return (NULL);	
@@ -159,12 +160,11 @@ char	*get_next_line(int fd)
 	line = get_nline(fd,line);
 	if (!line)
 		return (NULL);
-	len = ft_strchr(line,'\n');
 	trash = pick_line(line);
-	line = rest_line(line, len);
+	line = rest_line(line);
 	return (trash);
 }
-int main (void)
+/*int main (void)
 {
 	int	ifile = open("test.txt",O_RDONLY);
 	int ifile1 = open("test_nl.txt",O_RDONLY);
@@ -196,7 +196,7 @@ int main (void)
 		i++;
 	}
 	close(ifile2);
-	
+
 	i = 0;
 	printf("O seu arquivo: \"test_void\" tem: \n");
 	while (i < 3)
@@ -232,6 +232,7 @@ int main (void)
 		i++;
 	}
 	close(ifile4);
-	
+
 	return (0);
 }
+*/

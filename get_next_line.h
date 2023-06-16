@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:25:13 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 18:39:27 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:21:27 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd);
 int		ft_strchr(char const *str,int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s, int c);
-char	*rest_line(char *src, int j);
+char	*rest_line(char *src);
 char	*get_nline(int fd, char *line);
 char	*pick_line(char *src);
 
