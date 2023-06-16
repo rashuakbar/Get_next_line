@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/10 13:39:19 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:00:30 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
-//	while (i < (totallen - 1))
-//	{
 	while (s1[++i])
 		str[i] = s1[i];
 	while (s2[++j])
 		str[j + i] = s2[j];
-//	}
 	str[j + i] = '\0';
 	free(s1);
 	return (str);
@@ -68,31 +65,52 @@ int	ft_strchr(const char *str, int c)
 	}
 	if (temp[i] == (unsigned char) c)
 		return (i);
-	return (-1);
+	return (0);
 }
 
-void	*ft_calloc(size_t nl, size_t lsize)
+char	*rest_line(char *src, int j)
 {
-	void	*temp;
-
-	temp = malloc((lsize * nl));
-	if (!temp)
+	int		i;
+	int		ind;
+	char	*rest;
+	char	*temp;
+	
+	ind = 0;
+	i = ft_strchr(src,'\0');
+	rest = malloc((i - j + 1) * sizeof(char));
+	if(!rest)
 		return (NULL);
-	ft_bzero(temp, (lsize * nl));
-	return ((void *)temp);
-}
-
-void	*ft_bzero(void *src, size_t n)
-{
-	size_t	i;
-	char	*s;
-
-	s = (char *) src;
-	i = 0;
-	while (i < n)
+	temp = src;
+	if (!temp[j])
 	{
-		s[i] = '\0';
-		i++;
+		rest[0] = '\0';
+		free(src);
+		return (rest);
 	}
-	return ((void *)s);
+	while (temp[++j] != '\0')
+		rest[ind++] = temp[j];
+	rest[ind] = '\0';
+	free(src);
+	return (rest);
+}
+char	*pick_line(char *src)
+{
+	char	*new_line;
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = ft_strchr(src,'\n');
+	if(!src[i])
+		return (NULL);
+	new_line = malloc((j + 1) * sizeof(char));
+	if(!new_line)
+		return (NULL);
+	while (i < j)
+	{
+		new_line[i] = src[i];
+		i++;	
+	}
+	new_line[i] = '\0';
+	return (new_line);
 }

@@ -6,13 +6,13 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/15 18:26:03 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:03:09 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s, int c)
+/*size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -37,13 +37,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
-//	while (i < (totallen - 1))
-//	{
 	while (s1[++i])
 		str[i] = s1[i];
 	while (s2[++j])
 		str[j + i] = s2[j];
-//	}
 	str[j + i] = '\0';
 	free(s1);
 	return (str);
@@ -70,32 +67,52 @@ int	ft_strchr(const char *str, int c)
 		return (i);
 	return (0);
 }
-
-void	*ft_calloc(size_t nl, size_t lsize)
+char	*rest_line(char *src, int j)
 {
-	void	*temp;
-
-	temp = malloc((lsize * nl));
-	if (!temp)
+	int		i;
+	int		ind;
+	char	*rest;
+	char	*temp;
+	
+	ind = 0;
+	i = ft_strchr(src,'\0');
+	rest = malloc((i - j + 1) * sizeof(char));
+	if(!rest)
 		return (NULL);
-	ft_bzero(temp, (lsize * nl));
-	return ((void *)temp);
-}
-
-void	*ft_bzero(void *src, size_t n)
-{
-	size_t	i;
-	char	*s;
-
-	s = (char *) src;
-	i = 0;
-	while (i < n)
+	temp = src;
+	if (!temp[j])
 	{
-		s[i] = '\0';
-		i++;
+		rest[0] = '\0';
+		free(src);
+		return (rest);
 	}
-	return ((void *)s);
+	while (temp[++j] != '\0')
+		rest[ind++] = temp[j];
+	rest[ind] = '\0';
+	free(src);
+	return (rest);
 }
+char	*pick_line(char *src)
+{
+	char	*new_line;
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = ft_strchr(src, '\n');
+	if(!src[i])
+		return (NULL);
+	new_line = malloc((j + 1) * sizeof(char));
+	if(!new_line)
+		return (NULL);
+	while (i < j)
+	{
+		new_line[i] = src[i];
+		i++;	
+	}
+	new_line[i] = '\0';
+	return (new_line);
+}*/
 //
 //
 // MANDATORY PART
@@ -125,58 +142,6 @@ char	*get_nline(int fd, char *line)
 	return (line);
 }
 
-char	*rest_line(char *src, int j)
-{
-	int		i;
-	int		ind;
-	char	*rest;
-	char	*temp;
-	
-	ind = 0;
-	i = ft_strchr(src,'\0');
-	rest = malloc((i - j + 1) * sizeof(char));
-	if(!rest)
-		return (NULL);
-	temp = src;
-	if (*temp && j <= 1 && (temp[0] == '\n' || temp[0] == '\0'))
-	{
-		rest[0] = '\0';
-		free(src);
-		//src = NULL;
-		return (rest);
-	}
-	while (temp[++j] != '\0')  // ha um erro aqui, qundo lê só um byte, e esse byte é \n CORRIGIR!!!!!!
-		rest[ind++] = temp[j];
-	rest[ind] = '\0';
-	free(src);
-	return (rest);
-}
-char	*pick_line(char *src)
-{
-	char	*new_line;
-	int		i;
-	int		j;
-	
-	i = 0;
-	j = ft_strchr(src,'\n');
-	if(!src[i])
-		return (NULL);
-	new_line = malloc((j + 1) * sizeof(char));
-	if(!new_line)
-	{
-		//free(src); 
-		return (NULL);
-	}
-	while (i < j)
-	{
-		new_line[i] = src[i];
-		i++;	
-	}
-	new_line[i] = '\0';
-	//free(src);
-	return (new_line);
-}
-
 char	*get_next_line(int fd)
 {
 	static char	*line;
@@ -186,7 +151,10 @@ char	*get_next_line(int fd)
 	if (!fd || !BUFF_SIZE)
 		return (NULL);	
 	if (!line)
-		line = ft_calloc(1,1);
+	{
+		line = malloc(sizeof(char));
+		line[0] = '\0';
+	}
 	line = get_nline(fd,line);
 	if (!line)
 		return (NULL);
@@ -195,12 +163,13 @@ char	*get_next_line(int fd)
 	line = rest_line(line, len);
 	return (trash);
 }
-int main (void)
+/*int main (void)
 {
-//	int	ifile = open("test.txt",O_RDONLY);
-	int ifile1 = open("test_nl",O_RDONLY);
-	int ifile2 = open("test_1lsnl", O_RDONLY);
-//	int	ifile3 = open("test_void", O_RDONLY);
+	int	ifile = open("test.txt",O_RDONLY);
+	int ifile1 = open("test_nl.txt",O_RDONLY);
+	int ifile2 = open("test_1lsnl.txt", O_RDONLY);
+	int	ifile3 = open("test_void.txt", O_RDONLY);
+	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
 	char *s; 
 	int	i = 0;
 	
@@ -227,7 +196,7 @@ int main (void)
 	}
 	close(ifile2);
 	
-	/*i = 0;
+	i = 0;
 	printf("O seu arquivo: \"test_void\" tem: \n");
 	while (i < 3)
 	{
@@ -249,6 +218,19 @@ int main (void)
 		free(s);
 		i++;
 	}
-	close(ifile);*/
+	close(ifile);
+	
+	i = 0;	
+	printf("\n O seu arquivo: \"test_1ch_snl\" tem: \n");
+	while (i < 2)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile4);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile4);
+	
 	return (0);
-}
+}*/

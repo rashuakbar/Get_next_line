@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:25:13 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/02 19:00:00 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:06:53 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@
 # include <fcntl.h>
 
 #ifndef BUFF_SIZE
-# define BUFF_SIZE 1
+# define BUFF_SIZE 1git0
 #endif
 
 char	*get_next_line(int fd);
-int	ft_strchr(char const *str,int c);
+int		ft_strchr(char const *str,int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s, int c);
-void	*ft_calloc(size_t nl, size_t lsize);
-void	*ft_bzero(void *src, size_t n);
 char	*rest_line(char *src, int j);
 char	*get_nline(int fd, char *line);
 char	*pick_line(char *src);
