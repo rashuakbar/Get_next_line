@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 19:03:40 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:07:16 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*pick_line(char *src)
 	new_line = malloc(j * sizeof(char) + 2);
 	if(!new_line)
 		return (NULL);
-	while (i <= j)
+	while (i < j)
 	{
 		new_line[i] = src[i];
 		i++;	
