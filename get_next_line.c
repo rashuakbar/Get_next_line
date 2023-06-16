@@ -6,13 +6,13 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 18:03:09 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:03:40 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*size_t	ft_strlen(const char *s, int c)
+size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -76,16 +76,15 @@ char	*rest_line(char *src, int j)
 	
 	ind = 0;
 	i = ft_strchr(src,'\0');
-	rest = malloc((i - j + 1) * sizeof(char));
-	if(!rest)
-		return (NULL);
 	temp = src;
 	if (!temp[j])
 	{
-		rest[0] = '\0';
 		free(src);
-		return (rest);
+		return (NULL);
 	}
+	rest = malloc((i - j + 1) * sizeof(char));
+	if(!rest)
+		return (NULL);
 	while (temp[++j] != '\0')
 		rest[ind++] = temp[j];
 	rest[ind] = '\0';
@@ -99,20 +98,22 @@ char	*pick_line(char *src)
 	int		j;
 	
 	i = 0;
-	j = ft_strchr(src, '\n');
-	if(!src[i])
+	j = 0;
+	if(!src[j])
 		return (NULL);
-	new_line = malloc((j + 1) * sizeof(char));
+	while (src[j] && src[j] != '\n')
+		j++;
+	new_line = malloc(j * sizeof(char) + 2);
 	if(!new_line)
 		return (NULL);
-	while (i < j)
+	while (i <= j)
 	{
 		new_line[i] = src[i];
 		i++;	
 	}
 	new_line[i] = '\0';
 	return (new_line);
-}*/
+}
 //
 //
 // MANDATORY PART
@@ -163,7 +164,7 @@ char	*get_next_line(int fd)
 	line = rest_line(line, len);
 	return (trash);
 }
-/*int main (void)
+int main (void)
 {
 	int	ifile = open("test.txt",O_RDONLY);
 	int ifile1 = open("test_nl.txt",O_RDONLY);
@@ -233,4 +234,4 @@ char	*get_next_line(int fd)
 	close(ifile4);
 	
 	return (0);
-}*/
+}

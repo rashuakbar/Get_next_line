@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 18:00:30 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:01:21 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,15 @@ char	*rest_line(char *src, int j)
 	
 	ind = 0;
 	i = ft_strchr(src,'\0');
-	rest = malloc((i - j + 1) * sizeof(char));
-	if(!rest)
-		return (NULL);
 	temp = src;
 	if (!temp[j])
 	{
-		rest[0] = '\0';
 		free(src);
-		return (rest);
+		return (NULL);
 	}
+	rest = malloc((i - j + 1) * sizeof(char));
+	if(!rest)
+		return (NULL);
 	while (temp[++j] != '\0')
 		rest[ind++] = temp[j];
 	rest[ind] = '\0';
