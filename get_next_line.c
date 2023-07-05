@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 19:44:07 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:09:06 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,10 @@ char	*pick_line(char *src)
 		return (NULL);
 	while (src[j] && src[j] != '\n')
 		j++;
-	new_line = malloc(j * sizeof(char) + 1);
+	new_line = malloc(j * sizeof(char) + 2);
 	if(!new_line)
 		return (NULL);
-	while (i < j)
+	while (i <= j)
 	{
 		new_line[i] = src[i];
 		i++;	
@@ -171,6 +171,7 @@ char	*get_next_line(int fd)
 	int ifile2 = open("test_1lsnl.txt", O_RDONLY);
 	int	ifile3 = open("test_void.txt", O_RDONLY);
 	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
+	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY);
 	char *s; 
 	int	i = 0;
 	
@@ -232,7 +233,18 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	close(ifile4);
+	
+	i = 0;
+	printf("\n O seu arquivo: \"test_alternate_nl\" tem: \n");
+	while (i < 3)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile5);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile5);
 
 	return (0);
-}
-*/
+}*/

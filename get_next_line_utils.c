@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/06/16 19:44:54 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/07/05 22:34:26 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ size_t	ft_strlen(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 	char	*str;
 
 	i = -1;
@@ -89,7 +89,7 @@ char	*rest_line(char *src)
 	if(!rest)
 		return (NULL);
 	while (src[++i] != '\0')
-		rest[ind++] = src[j];
+		rest[ind++] = src[i];
 	rest[ind] = '\0';
 	free(src);
 	return (rest);
@@ -106,10 +106,10 @@ char	*pick_line(char *src)
 		return (NULL);
 	while (src[j] && src[j] != '\n')
 		j++;
-	new_line = malloc(j * sizeof(char) + 1);
+	new_line = malloc(j * sizeof(char) + 2);
 	if(!new_line)
 		return (NULL);
-	while (i < j)
+	while (i <= j)
 	{
 		new_line[i] = src[i];
 		i++;	
