@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:25:13 by vimendes          #+#    #+#             */
-/*   Updated: 2023/07/05 23:06:11 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/07/29 00:21:24 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 
 #ifndef BUFF_SIZE
-# define BUFF_SIZE 1
+# define BUFF_SIZE 1000000
 #endif
 
 char	*get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/07/05 23:09:06 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/07/29 00:20:32 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ char	*rest_line(char *src)
 	}
 	rest = malloc((j - i) * sizeof(char));
 	if(!rest)
+	{
+		free(src);
 		return (NULL);
+	}
 	while (src[++i] != '\0')
 		rest[ind++] = src[i];
 	rest[ind] = '\0';
@@ -171,12 +174,13 @@ char	*get_next_line(int fd)
 	int ifile2 = open("test_1lsnl.txt", O_RDONLY);
 	int	ifile3 = open("test_void.txt", O_RDONLY);
 	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
-	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY);
+	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY); 
+	int	ifile6 = open("big_line_with_nl",O_RDONLY);
 	char *s; 
 	int	i = 0;
-	
+
 	printf("O seu arquivo: \"test_nl\" tem: \n");
-	while (i < 2)
+	while (i < 1)
 	{
 		printf("%d   ", (i+1));
 		s = get_next_line(ifile1);
@@ -188,7 +192,7 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	printf("O seu arquivo: \"test_1lsnl\" tem: \n");
-	while (i < 2)
+	while (i < 1)
 	{
 		printf("%d   ", (i+1));
 		s = get_next_line(ifile2);
@@ -200,7 +204,7 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	printf("O seu arquivo: \"test_void\" tem: \n");
-	while (i < 3)
+	while (i < 1)
 	{
 		printf("%d   ", (i+1));
 		s = get_next_line(ifile3);
@@ -212,7 +216,7 @@ char	*get_next_line(int fd)
 
 	i = 0;	
 	printf("\n O seu arquivo: \"test.txt\" tem: \n");
-	while (i < 135)
+	while (i < 133)
 	{
 		printf("%d   ", (i+1));
 		s = get_next_line(ifile);
@@ -224,7 +228,7 @@ char	*get_next_line(int fd)
 	
 	i = 0;	
 	printf("\n O seu arquivo: \"test_1ch_snl\" tem: \n");
-	while (i < 2)
+	while (i < 1)
 	{
 		printf("%d   ", (i+1));
 		s = get_next_line(ifile4);
@@ -245,6 +249,18 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	close(ifile5);
+
+	i = 0;
+	printf("\n O seu arquivo: \"big_line_with_nl\" tem: \n");
+	while (i < 1)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile6);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile6);
 
 	return (0);
 }*/
