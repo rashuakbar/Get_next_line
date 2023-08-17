@@ -126,13 +126,13 @@ char	*pick_line(char *src)
 char	*get_nline(int fd, char *line)
 {
 	char	*file;
-	int	op;
+	int		op;
 
 	op = 1;
 	file = malloc(BUFF_SIZE * sizeof(char) + 1);
 	if (!file)
 		return (NULL);
-	while (!ft_strchr(line,'\n') && (op != 0))
+	while (!ft_strchr(line, '\n') && (op != 0))
 	{
 		op = read(fd, file, BUFF_SIZE);
 		if (op == -1)
@@ -141,7 +141,7 @@ char	*get_nline(int fd, char *line)
 			free(line);
 			return (NULL);
 		}
-		file[op] = '\0';	
+		file[op] = '\0';
 		line = ft_strjoin(line, file);
 	}
 	free(file);
@@ -152,15 +152,15 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*trash;
-	
+
 	if (fd < 0 || !BUFF_SIZE)
-		return (NULL);	
+		return (NULL);
 	if (!line)
 	{
 		line = malloc(sizeof(char));
 		line[0] = '\0';
 	}
-	line = get_nline(fd,line);
+	line = get_nline(fd, line);
 	if (!line)
 		return (NULL);
 	trash = pick_line(line);

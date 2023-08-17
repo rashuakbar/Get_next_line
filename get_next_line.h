@@ -19,12 +19,12 @@
 # include <limits.h>
 # include <fcntl.h>
 
-#ifndef BUFF_SIZE
-# define BUFF_SIZE 1
-#endif
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
-int		ft_strchr(char const *str,int c);
+int		ft_strchr(char const *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s, int c);
 char	*rest_line(char *src);

@@ -15,7 +15,7 @@
 size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!s)
 		return (0);
@@ -27,13 +27,13 @@ size_t	ft_strlen(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	totallen;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*str;
 
 	i = -1;
 	j = -1;
-	totallen = ft_strlen(s1,'\0') + ft_strlen(s2, '\0') + 1;
+	totallen = ft_strlen(s1, '\0') + ft_strlen(s2, '\0') + 1;
 	str = malloc(totallen * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -51,7 +51,7 @@ int	ft_strchr(const char *str, int c)
 	char	*temp;
 	size_t	i;
 
-	if(!str)
+	if (!str)
 		return (-1);
 	temp = (char *)str;
 	i = 0;
@@ -74,7 +74,7 @@ char	*rest_line(char *src)
 	int		j;
 	int		ind;
 	char	*rest;
-	
+
 	ind = 0;
 	i = 0;
 	j = ft_strlen(src, '\0');
@@ -86,7 +86,7 @@ char	*rest_line(char *src)
 		return (NULL);
 	}
 	rest = malloc((j - i) * sizeof(char));
-	if(!rest)
+	if (!rest)
 		return (NULL);
 	while (src[++i] != '\0')
 		rest[ind++] = src[i];
@@ -94,25 +94,26 @@ char	*rest_line(char *src)
 	free(src);
 	return (rest);
 }
+
 char	*pick_line(char *src)
 {
 	char	*new_line;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
-	if(!src[j])
+	if (!src[j])
 		return (NULL);
 	while (src[j] && src[j] != '\n')
 		j++;
 	new_line = malloc(j * sizeof(char) + 2);
-	if(!new_line)
+	if (!new_line)
 		return (NULL);
 	while (i <= j)
 	{
 		new_line[i] = src[i];
-		i++;	
+		i++;
 	}
 	new_line[i] = '\0';
 	return (new_line);
