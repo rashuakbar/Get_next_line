@@ -1,0 +1,6 @@
+stattic char - pointer de pointer  [ FOPEN_MAX ] 
+
+passar como argumento src[fd]
+
+if (fd < 0 || !BUFFSIZE || fd > FOPEN_MAX)
+	return NULL;
