@@ -6,13 +6,13 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/07/29 00:20:32 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:26:14 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-/*size_t	ft_strlen(const char *s, int c)
+/*
+size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -153,7 +153,7 @@ char	*get_next_line(int fd)
 	static char	*line;
 	char		*trash;
 	
-	if (!fd || !BUFF_SIZE)
+	if (fd < 0 || !BUFF_SIZE)
 		return (NULL);	
 	if (!line)
 	{
@@ -176,10 +176,21 @@ char	*get_next_line(int fd)
 	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
 	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY); 
 	int	ifile6 = open("big_line_with_nl",O_RDONLY);
+	int	ifile7 = open("42_with_nl", O_RDONLY);
 	char *s; 
 	int	i = 0;
 
 	printf("O seu arquivo: \"test_nl\" tem: \n");
+	while (i < 2)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile7);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile7);
+
 	while (i < 1)
 	{
 		printf("%d   ", (i+1));
