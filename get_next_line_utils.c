@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:27:41 by vimendes          #+#    #+#             */
-/*   Updated: 2023/07/05 22:34:26 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:17:57 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*rest_line(char *src)
 	j = ft_strlen(src, '\0');
 	while (src[i] && src[i] != '\n')
 		i++;
-	if (!src[i])
+	if (!src[i] || (src[i] == '\n' && !(src[i + 1])))
 	{
 		free(src);
 		return (NULL);
