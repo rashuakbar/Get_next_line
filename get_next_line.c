@@ -6,13 +6,17 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/10 11:43:27 by vimendes         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/17 14:26:14 by vimendes         ###   ########.fr       */
+>>>>>>> 7405cae075d6d14ced35b2e6bbb3473c24811682
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-/*size_t	ft_strlen(const char *s, int c)
+/*
+size_t	ft_strlen(const char *s, int c)
 {
 	size_t	i;
 	
@@ -126,13 +130,13 @@ char	*pick_line(char *src)
 char	*get_nline(int fd, char *line)
 {
 	char	*file;
-	int	op;
+	int		op;
 
 	op = 1;
 	file = malloc(BUFF_SIZE * sizeof(char) + 1);
 	if (!file)
 		return (NULL);
-	while (!ft_strchr(line,'\n') && (op != 0))
+	while (!ft_strchr(line, '\n') && (op != 0))
 	{
 		op = read(fd, file, BUFF_SIZE);
 		if (op == -1)
@@ -141,7 +145,7 @@ char	*get_nline(int fd, char *line)
 			free(line);
 			return (NULL);
 		}
-		file[op] = '\0';	
+		file[op] = '\0';
 		line = ft_strjoin(line, file);
 	}
 	free(file);
@@ -152,15 +156,15 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*trash;
-	
-	if (!fd || !BUFF_SIZE)
-		return (NULL);	
+
+	if (fd < 0 || !BUFF_SIZE)
+		return (NULL);
 	if (!line)
 	{
 		line = malloc(sizeof(char));
 		line[0] = '\0';
 	}
-	line = get_nline(fd,line);
+	line = get_nline(fd, line);
 	if (!line)
 		return (NULL);
 	trash = pick_line(line);
@@ -169,6 +173,7 @@ char	*get_next_line(int fd)
 }
 /*int main (void)
 {
+<<<<<<< HEAD
 	int	ifile = open("./Files_test/test.txt",O_RDONLY);
 	int ifile1 = open("./Files_test/test_nl.txt",O_RDONLY);
 	int ifile2 = open("./Files_test/test_1lsnl.txt", O_RDONLY);
@@ -176,10 +181,30 @@ char	*get_next_line(int fd)
 	int	ifile4 = open("./Files_test/test_1ch_snl.txt", O_RDONLY);
 	int	ifile5 = open("./Files_test/test_alternate_nl.txt",O_RDONLY); 
 	int	ifile6 = open("./Files_test/big_line_with_nl",O_RDONLY);
+=======
+	int	ifile = open("test.txt",O_RDONLY);
+	int ifile1 = open("test_nl.txt",O_RDONLY);
+	int ifile2 = open("test_1lsnl.txt", O_RDONLY);
+	int	ifile3 = open("test_void.txt", O_RDONLY);
+	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
+	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY); 
+	int	ifile6 = open("big_line_with_nl",O_RDONLY);
+	int	ifile7 = open("42_with_nl", O_RDONLY);
+>>>>>>> 7405cae075d6d14ced35b2e6bbb3473c24811682
 	char *s; 
 	int	i = 0;
 
 	printf("O seu arquivo: \"test_nl\" tem: \n");
+	while (i < 2)
+	{
+		printf("%d   ", (i+1));
+		s = get_next_line(ifile7);
+		printf("<%s> \n\n", s);
+		free(s);
+		i++;
+	}
+	close(ifile7);
+
 	while (i < 1)
 	{
 		printf("%d   ", (i+1));
