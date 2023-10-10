@@ -6,7 +6,7 @@
 /*   By: vimendes <vimendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:15:55 by vimendes          #+#    #+#             */
-/*   Updated: 2023/07/29 00:20:32 by vimendes         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:43:27 by vimendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,13 @@ char	*get_next_line(int fd)
 }
 /*int main (void)
 {
-	int	ifile = open("test.txt",O_RDONLY);
-	int ifile1 = open("test_nl.txt",O_RDONLY);
-	int ifile2 = open("test_1lsnl.txt", O_RDONLY);
-	int	ifile3 = open("test_void.txt", O_RDONLY);
-	int	ifile4 = open("test_1ch_snl.txt", O_RDONLY);
-	int	ifile5 = open("test_alternate_nl.txt",O_RDONLY); 
-	int	ifile6 = open("big_line_with_nl",O_RDONLY);
+	int	ifile = open("./Files_test/test.txt",O_RDONLY);
+	int ifile1 = open("./Files_test/test_nl.txt",O_RDONLY);
+	int ifile2 = open("./Files_test/test_1lsnl.txt", O_RDONLY);
+	int	ifile3 = open("./Files_test/test_void.txt", O_RDONLY);
+	int	ifile4 = open("./Files_test/test_1ch_snl.txt", O_RDONLY);
+	int	ifile5 = open("./Files_test/test_alternate_nl.txt",O_RDONLY); 
+	int	ifile6 = open("./Files_test/big_line_with_nl",O_RDONLY);
 	char *s; 
 	int	i = 0;
 
